@@ -37,7 +37,7 @@ const Header = () => {
             })
         }
     return (
-        <header className='fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 '>
+        <header className='fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary'>
            <div className='hidden md:flex w-full h-full items-center justify-between '>
             <Link to={"/"} className='flex items-center gap-2'>
             <img src={Logo} alt="" className='w-10 object-cover' />
@@ -68,7 +68,7 @@ const Header = () => {
            animate={{opacity:1,scale:1}} 
            exit={{opacity:0,scale:0.6}} 
            className='w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0'>
-               {user && user.email ==="royakash1272@gmail.com" && ( <Link to={"/createItem"}><p className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'>New Item <MdAdd/></p></Link>)}
+               {user && user.email ==="royakash1272@gmail.com" && ( <Link to={"/createItem"}><p onClick={()=>setIsMenu(false)} className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'>New Item <MdAdd/></p></Link>)}
                 <p onClick={logout}  className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'>Logout <MdLogout/></p>
             </motion.div>)}
             </div>
