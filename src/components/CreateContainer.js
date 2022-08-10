@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { MdFastfood, MdCloudUpload, MdDelete,MdFoodBank,MdAttachMoney } from "react-icons/md";
 import { categories } from "../utils/data";
 import Loader from "./Loader";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../firebase.config";
 
 const CreateContainer = () => {
@@ -54,7 +54,20 @@ const CreateContainer = () => {
       }
     );
   };
-  const deleteImage = () => {};
+  const deleteImage = () => {
+    setIsLoading(true);
+    const deleteRef = ref(storage, imageAsset);
+    deleteObject(deleteRef).then(() => {
+      setImageAsset(null);
+      setIsLoading(false);
+      setFields(true);
+      setMsg("Image deleted successfully 😊");
+      setAlertStatus("success");
+      setTimeout(() => {
+        setFields(false);
+      }, 4000);
+    });
+  };
   const saveDetails = () => {};
 
   return (
