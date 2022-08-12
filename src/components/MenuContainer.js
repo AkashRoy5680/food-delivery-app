@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {IoFastFood } from "react-icons/io5";
 import { categories } from '../utils/data';
+import { motion } from "framer-motion";
 const MenuContainer=() => {
     const [filter,setFilter]=useState("chicken")
 
@@ -13,13 +14,25 @@ const MenuContainer=() => {
         <div className='w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none'>
             {
                 categories && categories.map(category=> (
-                    <div key={category.id} className='group bg-card w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-blue-600 duration-150 transition-all ease-in-out'>
+                    <motion.div whileTap={{ scale: 0.75 }} key={category.id} className={`group ${
+                    filter === category.urlParamName ? 
+                    "bg-cartNumBg" : "bg-card"
+                    } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
+                    onClick={() => setFilter(category.urlParamName)}>
 
-                <div className='w-10 h-10 rounded-full bg-blue-500 group-hover:bg-card flex items-center justify-center '>
-                    <IoFastFood className="text-card group-hover:text-textColor text-lg"/>
+                <div className={`w-10 h-10 rounded-full shadow-lg ${
+                    filter === category.urlParamName
+                      ? "bg-white"
+                      : "bg-cartNumBg"
+                  } group-hover:bg-white flex items-center justify-center`}>
+                    <IoFastFood  className={`${
+                      filter === category.urlParamName
+                        ? "text-textColor"
+                        : "text-white"
+                    } group-hover:text-textColor text-lg`}/>
                 </div>
                 <p className='text-sm text-textColor group-hover:text-white'>{category.name}</p>
-                   </div>
+                   </motion.div>
                 ))
             }
         </div>
