@@ -4,4 +4,5 @@ const userInfo=fetchUser();
 export const inititalState={
     user:userInfo,
     foodItems:null,
+    cartShow:false,
 }
