@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { motion } from "framer-motion";
 import { MdShoppingBasket } from "react-icons/md";
+import NotFound from "./img/NotFound.svg";
 
 
 const RowContainer=({flag,data,scrollValue})=> {
@@ -15,7 +16,7 @@ const RowContainer=({flag,data,scrollValue})=> {
           ? "overflow-x-scroll scrollbar-none"
           : "overflow-x-hidden flex-wrap justify-center"
       }`}>
-        {data && data.map(item => (
+        {data && data.length > 0 ? data.map(item => (
             <div key={item.id} className='w-275 min-w-[300px] md:w-300 md:min-w-[300px] h-[175px] rounded-lg p-2 my-12 backdrop-blur-lg flex flex-col items-center justify-between'>
             <div className='w-full flex items-center justify-between'>
             <motion.div
@@ -46,7 +47,15 @@ const RowContainer=({flag,data,scrollValue})=> {
             </div>
             </div>
         </div>
-        ))}
+        )) :
+        (
+          <div className="w-full flex flex-col items-center justify-center">
+            <img className='h-340' src={NotFound} alt="" />
+            <p className="text-xl text-headingColor font-semibold my-2">
+              Items Not Available
+            </p>
+          </div>
+        )}
       </div>
   )
 }
