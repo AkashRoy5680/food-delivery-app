@@ -2,7 +2,18 @@ import React from 'react';
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 import { motion } from "framer-motion";
+import { actionType } from '../context/reducer';
+import { useStateValue } from '../context/StateProvider';
 const CartContainer = () => {
+
+    const [{cartShow}, dispatch]=useStateValue();
+
+    const showCart = () => {
+        dispatch({
+          type: actionType.SET_CART_SHOW,
+          cartShow: !cartShow,
+        });
+      };
     return (
         <motion.div
         initial={{ opacity: 0, x: 200 }}

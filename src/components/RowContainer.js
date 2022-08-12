@@ -1,12 +1,24 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion } from "framer-motion";
 import { MdShoppingBasket } from "react-icons/md";
 import NotFound from "./img/NotFound.svg";
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
 
 const RowContainer=({flag,data,scrollValue})=> {
     console.log(data);
     const rowContainer=useRef();
+    const [{ cartItems }, dispatch] = useStateValue();
+    const [items, setItems] = useState([]);
+
+    const addtocart = () => {
+      dispatch({
+        type: actionType.SET_CARTITEMS,
+        cartItems: items,
+      });
+      localStorage.setItem("cartItems", JSON.stringify(items));
+    };
   {/*  useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]); */}
@@ -31,19 +43,21 @@ const RowContainer=({flag,data,scrollValue})=> {
             </motion.div>
             <motion.div
             whileTap={{scale:0.75}}
-            className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow:md" 
+            className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow:md"
+            onClick={() => setItems([...cartItems, item])}
             >
             <MdShoppingBasket className="text-white"/>
             </motion.div>
             </div>
 
             <div className='w-full flex flex-col items-end justify-end'>
-            <p className='text-textColor font-semibold text-base md:text-lg '>{item?.title}</p>
+            <p className='text-textColor font-semibold text-base md:text-lg '>{item?.title}
+            </p>
             <p className='mt-1 text-sm text-gray-500'>{item?.calories}</p>
             <div className='flex items-center gap-8 '>
-                <p className='text-lg text-headingColor font-semibold'>
-                    <span className='text-sm text-red-500'>$</span>{item?.price}
-                </p>
+              <p className='text-lg text-headingColor font-semibold'>
+                <span className='text-sm text-red-500'>$</span>{item?.price}
+              </p>
             </div>
             </div>
         </div>
