@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { actionType } from '../context/reducer';
 import { useStateValue } from '../context/StateProvider';
 import EmptyCart from "./img/emptyCart.svg";
+import CartItem from './CartItem';
 const CartContainer = () => {
 
-    const [{cartShow,cartItems}, dispatch]=useStateValue();
+    const [{cartShow,cartItems,user}, dispatch]=useStateValue();
 
+    const [flag, setFlag] = useState(1);
+    const [tot, setTot] = useState(0);
+  
     const showCart = () => {
-        dispatch({
-          type: actionType.SET_CART_SHOW,
-          cartShow: !cartShow,
-        });
-      };
+      dispatch({
+        type: actionType.SET_CART_SHOW,
+        cartShow: !cartShow,
+      });
+    };
+  
+    useEffect(() => {
+      let totalPrice = cartItems.reduce(function (accumulator, item) {
+        return accumulator + item.qty * item.price;
+      }, 0);
+      setTot(totalPrice);
+      console.log(tot);
+    }, [tot, flag]);
+  
+    const clearCart = () => {
+      dispatch({
+        type: actionType.SET_CARTITEMS,
+        cartItems: [],
+      });
+  
+      localStorage.setItem("cartItems", JSON.stringify([]));
+    };
     return (
         <motion.div
         initial={{ opacity: 0, x: 200 }}
