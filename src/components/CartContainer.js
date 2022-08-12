@@ -4,9 +4,10 @@ import { RiRefreshFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { actionType } from '../context/reducer';
 import { useStateValue } from '../context/StateProvider';
+import EmptyCart from "./img/emptyCart.svg";
 const CartContainer = () => {
 
-    const [{cartShow}, dispatch]=useStateValue();
+    const [{cartShow,cartItems}, dispatch]=useStateValue();
 
     const showCart = () => {
         dispatch({

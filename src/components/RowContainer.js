@@ -19,6 +19,11 @@ const RowContainer=({flag,data,scrollValue})=> {
       });
       localStorage.setItem("cartItems", JSON.stringify(items));
     };
+
+    useEffect(() => {
+      addtocart();
+    }, [items]);
+    
   {/*  useEffect(() => {
         rowContainer.current.scrollLeft += scrollValue;
     }, [scrollValue]); */}
